@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseList from './components/ExpenseList';
+import { connect } from 'react-redux';
 
 class App extends Component {
   constructor() {
@@ -44,6 +45,8 @@ class App extends Component {
   // }
 
   render() {
+    console.log(this.props)
+
     return (
       <div>
         <ExpenseForm onAddExpense={this.handleAddExpense} />
@@ -54,4 +57,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

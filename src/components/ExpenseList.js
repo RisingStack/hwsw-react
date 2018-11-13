@@ -5,7 +5,7 @@ class ExpenseList extends React.Component {
     super()
 
     this.state = {
-      amountGt: 10000
+      amountGt: 1
     }
   }
   
