@@ -8,8 +8,8 @@ class App extends Component {
 
     this.state = {
       expenses: [
-        { name: 'Kiadas #1', amount: 12312, currency: 'huf', comment: '....' },
-        { name: 'Kiadas #2', amount: 342, currency: 'eur', comment: '....' }
+        { id: 0, name: 'Kiadas #1', amount: 12312, currency: 'huf', comment: '....' },
+        { id: 1, name: 'Kiadas #2', amount: 342, currency: 'eur', comment: '....' }
       ]
     }
   }
