@@ -1,31 +1,18 @@
 import React, { Component } from 'react';
-import ExpenseForm from './components/ExpenseForm';
-import ExpenseList from './components/ExpenseList';
+import ExpenseForm from '../components/ExpenseForm';
+import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
+import { addExpense } from '../actions/actionTypes';
 
 class App extends Component {
   constructor() {
     super()
 
-    this.state = {
-      expenses: [
-        { id: 0, name: 'Kiadas #1', amount: 12312, currency: 'huf', comment: '....' },
-        { id: 1, name: 'Kiadas #2', amount: 342, currency: 'eur', comment: '....' }
-      ]
-    }
-
     this.handleAddExpense = this.handleAddExpense.bind(this);
   }
 
   handleAddExpense(expense) {
-    this.setState({
-      expenses: [ 
-        ...this.state.expenses,
-        Object.assign(
-          expense,
-          { id: this.state.expenses[this.state.expenses.length - 1].id + 1 })
-      ]
-    })
+    this.props.onAddExpense(expense);
   }
 
   // handleNameChange(key, value) {
@@ -45,16 +32,26 @@ class App extends Component {
   // }
 
   render() {
-    console.log(this.props)
-
     return (
       <div>
         <ExpenseForm onAddExpense={this.handleAddExpense} />
-        <ExpenseList expenses={this.state.expenses}/>
+        <ExpenseList expenses={this.props.expenses}/>
         {/* <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> { this.state.clickCount } */}
       </div>
     );
   }
 }
 
-export default connect()(App);
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expense.expenses
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddExpense: (expense) => dispatch(addExpense(expense))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
