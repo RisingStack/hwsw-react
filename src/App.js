@@ -12,6 +12,19 @@ class App extends Component {
         { id: 1, name: 'Kiadas #2', amount: 342, currency: 'eur', comment: '....' }
       ]
     }
+
+    this.handleAddExpense = this.handleAddExpense.bind(this);
+  }
+
+  handleAddExpense(expense) {
+    this.setState({
+      expenses: [ 
+        ...this.state.expenses,
+        Object.assign(
+          expense,
+          { id: this.state.expenses[this.state.expenses.length - 1].id + 1 })
+      ]
+    })
   }
 
   // handleNameChange(key, value) {
@@ -33,8 +46,8 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ExpenseForm onAddExpense={this.handleAddExpense} />
         <ExpenseList expenses={this.state.expenses}/>
-        <ExpenseForm />
         {/* <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> { this.state.clickCount } */}
       </div>
     );
