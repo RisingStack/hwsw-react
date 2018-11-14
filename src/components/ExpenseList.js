@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ExpenseList extends React.Component {
   constructor() {
@@ -37,6 +38,10 @@ class ExpenseList extends React.Component {
       </table>
     </div>;
   }
+}
+
+ExpenseList.propTypes = {
+  expenses: PropTypes.array.isRequired
 }
 
 export default ExpenseList;

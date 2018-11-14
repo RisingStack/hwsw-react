@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -40,6 +41,14 @@ class ExpenseForm extends Component {
       <button onClick={this.handleAddExpense}>Hozzaadas</button>
     </div>;
   }
+}
+
+ExpenseForm.defaultProps = {
+  onAddExpense: () => {}
+}
+
+ExpenseForm.propTypes = {
+  onAddExpense: PropTypes.func//.isRequired
 }
 
 export default ExpenseForm;
