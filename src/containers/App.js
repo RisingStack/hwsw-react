@@ -3,15 +3,17 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
 import { addExpense } from '../actions/actionTypes';
-import { getExpenses } from '../api';
+// import { getExpenses } from '../api';
+import { getExpenses }   from '../actions/expenseActions';
+import { incrementAsync } from '../actions/countActions';
 
 class App extends Component {
   constructor() {
     super()
 
-    this.state = {
-      apiExpenses: []
-    }
+    // this.state = {
+    //   apiExpenses: []
+    // }
 
     this.handleAddExpense = this.handleAddExpense.bind(this);
   }
@@ -21,12 +23,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getExpenses()
-      .then(response => {
-        this.setState({
-          apiExpenses: response.data
-        })
-      })
+    this.props.getExpenses();
+    // getExpenses()
+    //   .then(response => {
+    //     this.setState({
+    //       apiExpenses: response.data
+    //     })
+    //   })
       // .catch(err => {
 
       // })
@@ -52,8 +55,9 @@ class App extends Component {
     return (
       <div>
         <ExpenseForm onAddExpense={this.handleAddExpense} />
-        <ExpenseList expenses={this.state.apiExpenses}/>
+        <ExpenseList expenses={this.props.expenses} isLoading={this.props.isPending}/>
         {/* <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> { this.state.clickCount } */}
+        <button onClick={() => { this.props.increment(3) }}>{this.props.count}</button>
       </div>
     );
   }
@@ -61,13 +65,17 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    expenses: state.expense.expenses
+    count: state.count,
+    expenses: state.expense.expenses,
+    isPending: state.expense.isPending
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddExpense: (expense) => dispatch(addExpense(expense))
+    onAddExpense: (expense) => dispatch(addExpense(expense)),
+    increment: (value) => dispatch(incrementAsync(value)),
+    getExpenses: () => dispatch(getExpenses())
   }
 }
 

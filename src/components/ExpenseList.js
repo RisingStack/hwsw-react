@@ -26,6 +26,7 @@ class ExpenseList extends React.Component {
           </tr>
         </thead>
         <tbody>
+        { this.props.isLoading && <p>Betoltes alatt</p> }
         { this.props.expenses.map((expense) => {
           return expense.amount > this.state.amountGt &&
             <tr key={expense._id}>
@@ -40,8 +41,13 @@ class ExpenseList extends React.Component {
   }
 }
 
+ExpenseList.defaultProps = {
+  isLoading: false
+}
+
 ExpenseList.propTypes = {
-  expenses: PropTypes.array.isRequired
+  expenses: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default ExpenseList;
