@@ -28,8 +28,8 @@ class ExpenseList extends React.Component {
         <tbody>
         { this.props.expenses.map((expense) => {
           return expense.amount > this.state.amountGt &&
-            <tr key={expense.id}>
-              <td>{expense.name}</td>
+            <tr key={expense._id}>
+              <td>{expense.name || expense.title}</td>
               <td>{expense.amount} {expense.currency}</td>
               <td>{expense.comment}</td>
             </tr>;

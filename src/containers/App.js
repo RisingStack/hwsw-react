@@ -3,16 +3,33 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
 import { addExpense } from '../actions/actionTypes';
+import { getExpenses } from '../api';
 
 class App extends Component {
   constructor() {
     super()
+
+    this.state = {
+      apiExpenses: []
+    }
 
     this.handleAddExpense = this.handleAddExpense.bind(this);
   }
 
   handleAddExpense(expense) {
     this.props.onAddExpense(expense);
+  }
+
+  componentDidMount() {
+    getExpenses()
+      .then(response => {
+        this.setState({
+          apiExpenses: response.data
+        })
+      })
+      // .catch(err => {
+
+      // })
   }
 
   // handleNameChange(key, value) {
@@ -35,7 +52,7 @@ class App extends Component {
     return (
       <div>
         <ExpenseForm onAddExpense={this.handleAddExpense} />
-        <ExpenseList expenses={this.props.expenses}/>
+        <ExpenseList expenses={this.state.apiExpenses}/>
         {/* <button onClick={this.handlePlusOneClick.bind(this)} >+1</button> { this.state.clickCount } */}
       </div>
     );
