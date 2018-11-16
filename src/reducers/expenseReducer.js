@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSES_PENDING, GET_EXPENSES_SUCCESS, GET_EXPENSES_FAIL } from '../actions/actionTypes';
+import { GET_EXPENSES_PENDING, GET_EXPENSES_SUCCESS, GET_EXPENSES_FAIL, POST_EXPENSE_PENDING, POST_EXPENSE_FAIL, POST_EXPENSE_SUCCESS } from '../actions/actionTypes';
 
 const initialState = {
   expenses: [],
@@ -27,17 +27,25 @@ const expenseReducer = (state = initialState, action) => {
       isPending: false,
       error: action.error
     }
-    
-    case ADD_EXPENSE: return {
+
+    case POST_EXPENSE_SUCCESS: return {
       ...state,
-      expenses: [ 
-        ...state.expenses,
-        Object.assign(
-          action.value,
-          { id: state.expenses[state.expenses.length - 1].id + 1 })
-      ]
+
+      expenses: [...state.expenses, action.value]
     }
+    case POST_EXPENSE_FAIL:
+    case POST_EXPENSE_PENDING:
     default: return state;
+    
+    // case ADD_EXPENSE: return {
+    //   ...state,
+    //   expenses: [ 
+    //     ...state.expenses,
+    //     Object.assign(
+    //       action.value,
+    //       { id: state.expenses[state.expenses.length - 1].id + 1 })
+    //   ]
+    // }
   }
 };
 

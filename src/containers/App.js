@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import ExpenseForm from '../components/ExpenseForm';
 import ExpenseList from '../components/ExpenseList';
 import { connect } from 'react-redux';
-import { addExpense } from '../actions/actionTypes';
+import { addExpense, getExpenses } from '../actions/expenseActions';
 // import { getExpenses } from '../api';
-import { getExpenses }   from '../actions/expenseActions';
 import { incrementAsync } from '../actions/countActions';
 
 class App extends Component {
@@ -19,7 +18,10 @@ class App extends Component {
   }
 
   handleAddExpense(expense) {
-    this.props.onAddExpense(expense);
+    this.props.addExpense(expense)
+      // .then(() => {
+      //   this.props.getExpenses()
+      // });
   }
 
   componentDidMount() {
@@ -73,7 +75,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddExpense: (expense) => dispatch(addExpense(expense)),
+    addExpense: (expense) => dispatch(addExpense(expense)),
     increment: (value) => dispatch(incrementAsync(value)),
     getExpenses: () => dispatch(getExpenses())
   }
