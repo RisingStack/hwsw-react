@@ -34,7 +34,6 @@ class ExpenseList extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.isLoading && <p>Betoltes alatt</p>}
             {this.props.expenses.map(expense => {
               return (
                 expense.amount > this.state.amountGt && (
@@ -58,13 +57,8 @@ class ExpenseList extends React.Component {
   }
 }
 
-ExpenseList.defaultProps = {
-  isLoading: false
-};
-
 ExpenseList.propTypes = {
-  expenses: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool
+  expenses: PropTypes.array.isRequired
 };
 
 export default withRouter(ExpenseList);

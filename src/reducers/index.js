@@ -1,26 +1,20 @@
 import {
-  GET_EXPENSES_PENDING,
   GET_EXPENSES_SUCCESS,
-  GET_EXPENSES_FAIL,
   POST_EXPENSE_SUCCESS,
-  POST_EXPENSE_PENDING
+  GET_EXPENSE_SUCCESS
 } from "../actions/actionTypes";
-import { bindActionCreators } from "../../../../Library/Caches/typescript/3.1/node_modules/redux";
+import { START_LOADING, STOP_LOADING } from "../actions/loaderActions";
 
 export default function rootReducer(state = {}, action) {
   return {
     expenses: expensesReducer(state.expenses, action),
     expense: expenseReducer(state.expense, action),
-    isPending: isPendingReducer(state.isPending, action)
+    isLoading: isLoadingReducer(state.isLoading, action)
   };
 }
 
 function expensesReducer(state = [], action) {
   switch (action.type) {
-    case GET_EXPENSES_PENDING:
-      return [];
-    case GET_EXPENSES_FAIL:
-      return [];
     case GET_EXPENSES_SUCCESS:
       return action.value;
     case POST_EXPENSE_SUCCESS:
@@ -32,23 +26,20 @@ function expensesReducer(state = [], action) {
 
 function expenseReducer(state = {}, action) {
   switch (action.type) {
-    case "GET_EXPENSE":
-      return action.expense;
+    case GET_EXPENSE_SUCCESS:
+      return action.value;
     default:
       return state;
   }
 }
 
-function isPendingReducer(state = false, action) {
+function isLoadingReducer(state = false, action) {
   switch (action.type) {
-    case GET_EXPENSES_PENDING:
+    case START_LOADING:
       return true;
-    case POST_EXPENSE_PENDING:
-      return true;
-    case "GET_EXPENSE":
-      return true;
-    // TODO: improve this
-    default:
+    case STOP_LOADING:
       return false;
+    default:
+      return state;
   }
 }

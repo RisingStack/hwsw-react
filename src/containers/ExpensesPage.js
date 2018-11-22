@@ -19,16 +19,14 @@ class ExpensesPage extends Component {
 
   componentDidMount() {
     this.props.getExpenses();
+    setInterval(() => this.props.getExpenses(), 3000);
   }
 
   render() {
     return (
       <div>
         <ExpenseForm onAddExpense={this.handleAddExpense} />
-        <ExpenseList
-          expenses={this.props.expenses}
-          isLoading={this.props.isPending}
-        />
+        <ExpenseList expenses={this.props.expenses} />
       </div>
     );
   }
@@ -36,8 +34,7 @@ class ExpensesPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    expenses: state.expenses,
-    isPending: state.isPending
+    expenses: state.expenses
   };
 };
 
