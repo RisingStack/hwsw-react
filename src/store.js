@@ -1,26 +1,19 @@
-import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
+import { reduxLogger } from "./utils/reduxLogger";
 
-import countReducer from './reducers/countReducer';
-import expenseReducer from './reducers/expenseReducer';
-import { reduxLogger } from './utils/reduxLogger';
-
-const rootReducer = combineReducers({
-  count: countReducer,
-  expense: expenseReducer
-})
-
-const middleware = [ thunk, reduxLogger ]
+const middleware = [thunk, reduxLogger];
 
 const composeEnhancers =
-  typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-    }) : compose;
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+      })
+    : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(...middleware),
+  applyMiddleware(...middleware)
   // other store enhancers if any
 );
 const store = createStore(rootReducer, enhancer);

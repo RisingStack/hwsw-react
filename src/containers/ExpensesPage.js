@@ -36,16 +36,14 @@ class ExpensesPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    count: state.count,
-    expenses: state.expense.expenses,
-    isPending: state.expense.isPending
+    expenses: state.expenses,
+    isPending: state.isPending
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     addExpense: expense => dispatch(addExpense(expense)),
-    increment: value => dispatch(incrementAsync(value)),
     getExpenses: () => dispatch(getExpenses())
   };
 };
