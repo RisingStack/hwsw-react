@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import "./ExpenseList.scss";
 
 class ExpenseList extends React.Component {
   constructor() {
@@ -18,13 +19,15 @@ class ExpenseList extends React.Component {
 
   render() {
     return (
-      <div>
-        <label>Osszeg nagyobb mint: </label>
-        <input
-          type="number"
-          value={this.state.amountGt}
-          onChange={event => this.setState({ amountGt: event.target.value })}
-        />
+      <div className="expense-list">
+        <div className="header">
+          <label>Osszeg nagyobb mint: </label>
+          <input
+            type="number"
+            value={this.state.amountGt}
+            onChange={event => this.setState({ amountGt: event.target.value })}
+          />
+        </div>
         <table>
           <thead>
             <tr>
